@@ -12,10 +12,6 @@ def check_disk_status():
     print("Disk usage:", disk_status)
     return disk_status > disk_threshold
 
-def check_internet_connectivity():
-    conn=requests.get("https://google.com")
-    print("internet connectivity is ok")
-    return conn.status_code != 200
 
 def get_public_ip():    
     ext_ip=os.popen('curl -s ifconfig.me').readline()
@@ -38,14 +34,19 @@ def ip_info():
     print("Priv IP:", ip_addr)
 
 def print_hashes(word):
-    print(f"====={word}=======")
+    print(f"============={word}==============")
 
-def main():  
-    if check_internet_connectivity() or check_disk_status() or check_the_cpu_usage() or check_mem_usage():
-        print("Some thing went wrong please check your sytem")
-    else:
-        print_hashes("ip")
-        ip_info()
-        get_public_ip()
+def main(): 
+    print_hashes("ip")
+    ip_info()
+    get_public_ip()
+    print_hashes("==") 
+    
+    if check_disk_status() or check_the_cpu_usage() or check_mem_usage():
         print_hashes("==")
+        print("Some thing went wrong.")
+        print_hashes("==")
+    else:
+        print_hashes("==") 
+        print("All are good!")
 main()
